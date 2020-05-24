@@ -1,0 +1,61 @@
+const express = require('express');
+const app = express();
+const morgan = require("morgan");
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
+const userRoutes = require('./api/routes/user');
+const hotRoutes = require("./api/routes/hot");
+const productRoutes = require('./api/routes/product');
+
+mongoose.connect(
+    'mongodb://ngtszlong:87156215@cluster0-shard-00-00-6uf9r.mongodb.net:27017,cluster0-shard-00-01-6uf9r.mongodb.net:27017,cluster0-shard-00-02-6uf9r.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority',
+    {
+        useCreateIndex: true,
+        useUnifiedTopology: true,
+        useNewUrlParser: true
+    }
+);
+mongoose.Promise = global.Promise;
+
+app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+
+app.use((req, res, next)=> {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+        "Access-Control-Allow-Headers", 
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+        );
+        if(req.method === "OPTIONS"){
+            res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+            return res.status(200).json({});
+        }
+        next();
+});
+
+app.use('/user', userRoutes);
+app.use("/hot", hotRoutes);
+app.use('/product', productRoutes);
+
+app.use((req, res, next) => {
+    const error = new Error('Not found');
+    error.status = 404;
+    next(error);
+})
+
+app.use((error, req, res, next) => {
+    res.status(error.status || 500);
+    res.json({
+        error: {
+            message: error.message
+        }
+    });
+});
+
+app.get('/', function(req, res){
+    res.render('index.html');
+});
+
+module.exports = app;
