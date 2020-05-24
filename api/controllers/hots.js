@@ -17,7 +17,7 @@ exports.hots_get_all = (req, res, next) => {
             product: doc.product,
             request: {
               type: "GET",
-              url: "http://localhost:3000/hot/" + doc._id
+              url: "https://web-apiassignment.herokuapp.com/hot/" + doc._id
             }
           };
         })
@@ -54,7 +54,7 @@ exports.hots_create_hot = (req, res, next) => {
         },
         request: {
           type: "POST",
-          url: "http://localhost:3000/hot/" + result._id
+          url: "https://web-apiassignment.herokuapp.com/hot/" + result._id
         }
       });
     })
@@ -80,7 +80,7 @@ exports.hots_get_hot = (req, res, next) => {
         hot: hot,
         request: {
           type: "GET",
-          url: "http://localhost:3000/hot"
+          url: "https://web-apiassignment.herokuapp.com/hot"
         }
       });
     })
@@ -99,7 +99,7 @@ exports.hots_delete_hot = (req, res, next) => {
         message: "Hot Item removed",
         request: {
           type: "DELETE",
-          url: "http://localhost:3000/hot",
+          url: "https://web-apiassignment.herokuapp.com/hot",
           body: { productId: "ID"}
         }
       });

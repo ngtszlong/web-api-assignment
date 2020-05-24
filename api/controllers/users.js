@@ -119,7 +119,7 @@ exports.user_update = (req, res, next) => {
         message: "User updated",
         request: {
           type: "GET",
-          url: "http://localhost:3000/user/" + id
+          url: "https://web-apiassignment.herokuapp.com/user/" + id
         }
       });
     })

@@ -15,7 +15,7 @@ exports.products_get_all = (req, res, next) => {
             _id: doc._id,
             request: {
               type: "GET",
-              url: "http://localhost:3000/product/" + doc._id
+              url: "https://web-apiassignment.herokuapp.com/product/" + doc._id
             }
           };
         })
@@ -48,7 +48,7 @@ exports.products_create_product = (req, res, next) => {
           _id: result._id,
           request: {
             type: "GET",
-            url: "http://localhost:3000/product/" + result._id
+            url: "https://web-apiassignment.herokuapp.com/product/" + result._id
           }
         }
       });
@@ -73,7 +73,7 @@ exports.products_get_product = (req, res, next) => {
           product: doc,
           request: {
             type: "GET",
-            url: "http://localhost:3000/product"
+            url: "https://web-apiassignment.herokuapp.com/product"
           }
         });
       } else {
@@ -101,7 +101,7 @@ exports.products_update_product = (req, res, next) => {
         message: "Product updated",
         request: {
           type: "GET",
-          url: "http://localhost:3000/product/" + id
+          url: "https://web-apiassignment.herokuapp.com/product/" + id
         }
       });
     })
@@ -122,7 +122,7 @@ exports.products_delete = (req, res, next) => {
         message: "Product deleted",
         request: {
           type: "POST",
-          url: "http://localhost:3000/product",
+          url: "https://web-apiassignment.herokuapp.com/product",
           body: { name: "String", price: "Number" }
         }
       });
